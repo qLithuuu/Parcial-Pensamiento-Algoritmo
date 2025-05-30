@@ -1,1 +1,90 @@
+mapa = []
 
+for i in range(8):
+    fila = []
+    for j in range(8):
+        if j == 0:
+            fila.append("V")
+        else:
+            fila.append("L")
+    mapa.append(fila)
+
+mapa[0][0] = "E"
+mapa[7][0] = "S"
+
+
+placas = []
+ubicaciones = []
+
+
+opcion = ""
+
+print("=== PARQUEADERO DE SAMUEL ROJAS ===")
+
+while opcion != "4":
+
+    print("\nMapa del parqueadero:")
+    for fila in mapa:
+        print(" ".join(fila))
+
+
+    print("\n1. Ingresar vehiculo")
+    print("2. Sacar vehículo")
+    print("3. Ver disponibilidad")
+    print("4. Salir")
+    opcion = input("Elige una opcion: ")
+
+    if opcion == "1":
+        placa = input("Ingresa la placa del vehiculo: ").upper()
+
+        if placa in placas:
+            print("Ese vehiculo ya esta en el parqueadero.")
+        else:
+            encontrado = False
+            for i in range(1, 7):
+                for j in range(1, 8):
+                    if mapa[i][j] == "L":
+                        mapa[i][j] = "O"
+                        placas.append(placa)
+                        ubicaciones.append((i, j))
+                        print("Vehículo registrado en posicion:", i, j)
+                        encontrado = True
+                        break
+                if encontrado:
+                    break
+            if not encontrado:
+                print("No hay espacios disponibles.")
+
+    elif opcion == "2":
+        placa = input("Ingresa la placa del vehiculo que va a salir: ").upper()
+
+        if placa in placas:
+            indice = placas.index(placa)
+            ubicacion = ubicaciones[indice]
+            i, j = ubicacion
+            mapa[i][j] = "L"
+            placas.pop(indice)
+            ubicaciones.pop(indice)
+            minutos = int(input("¿Cuantos minutos estuvo el vehiculo?: "))
+            tarifa = minutos * 100
+            print("Vehiculo retirado.")
+            print("Valor a pagar: $", tarifa)
+        else:
+            print("Ese vehiculo no esta registrado.")
+
+    elif opcion == "3":
+        libres = 0
+        ocupados = 0
+        for i in range(1, 7):
+            for j in range(1, 8):
+                if mapa[i][j] == "L":
+                    libres += 1
+                elif mapa[i][j] == "O":
+                    ocupados += 1
+        print("Espacios libres:", libres)
+        print("Espacios ocupados:", ocupados)
+
+    elif opcion == "4":
+        print("Gracias por usar el sistema.")
+    else:
+        print("Opcion no valida.")

@@ -27,3 +27,6 @@ Salir
 termina el programa
 
 Como usarlo
+Descargar el archivo llamado: codigo parqueadero parcial pensamiento.py
+Correrlo con python instalado en el equipo.
+En el terminal puedes ir probando el codigo.
